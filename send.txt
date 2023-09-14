@@ -1,0 +1,11 @@
+from telegram import Bot
+import os
+
+
+
+def send_ics_to_telegram(bot_token, chat_id, filename):
+    bot_token = '6456266993:AAFpP4deSDVyMps7uO22n3CQLC5ZzHPeaeo'
+    chat_id = '938563450'
+    bot = Bot(token=bot_token)
+    bot.send_document(chat_id=chat_id, document=open(filename, 'rb'))
+    os.remove(filename)

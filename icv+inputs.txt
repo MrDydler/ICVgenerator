@@ -1,0 +1,36 @@
+from icalendar import Calendar, Event
+from datetime import datetime
+import PyInstaller
+import requests
+
+
+summary = input('Название события: ')
+location = input('Локация: ')
+start = input('Дата начала (в формате ГГГГ-ММ-ДД ЧЧ:ММ): ')
+end = input('Дата окончания (в формате ГГГГ-ММ-ДД ЧЧ:ММ): ')
+description = input('Описание: ')
+
+# инпуты
+start_datetime = datetime.strptime(start, '%Y-%m-%d %H:%M')
+end_datetime = datetime.strptime(end, '%Y-%m-%d %H:%M')
+
+# создание календаря
+cal = Calendar()
+
+# ивент создаем
+event = Event()
+event.add('summary', summary)
+event.add('description', description)
+event.add('location', location)
+event.add('dtstart', start_datetime)
+event.add('dtend', end_datetime)
+
+# добавляем ивент в календварь
+cal.add_component(event)
+
+# генерируем ics файл календаря
+filename = summary
+with open(f'{filename}.ics', 'wb') as f:
+    f.write(cal.to_ical())
+
+print('Календарь создан')
